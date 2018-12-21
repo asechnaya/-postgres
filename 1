@@ -1,0 +1,22 @@
+-- Database: store
+
+-- DROP DATABASE store;
+
+CREATE DATABASE store
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Russian_Russia.1251'
+    LC_CTYPE = 'Russian_Russia.1251'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+	
+-- #100DaysOfCode
+
+-- INNER JOINT PART 2
+
+SELECT * FROM customers;
+SELECT * FROM orders;
+
+SELECT cu.id, cu.first_name, cu.last_name, o.quantity, o.price FROM orders o
+JOIN customers cu ON o.customer_id = cu.id; 
