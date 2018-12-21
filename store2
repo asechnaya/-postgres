@@ -1,22 +1,20 @@
 -- Database: store
 
 -- DROP DATABASE store;
-
-CREATE DATABASE store
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'Russian_Russia.1251'
-    LC_CTYPE = 'Russian_Russia.1251'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
 	
 -- #100DaysOfCode
-
 -- INNER JOINT PART 2
 
 SELECT * FROM customers;
 SELECT * FROM orders;
 
 SELECT cu.id, cu.first_name, cu.last_name, o.quantity, o.price FROM orders o
-JOIN customers cu ON o.customer_id = cu.id; 
+FULL JOIN customers cu ON o.customer_id = cu.id
+WHERE cu.first_name = 'John'; 
+
+
+SELECT cu.first_name, cu.last_name, o.quantity, o.price, o.order_date FROM orders o
+FULL JOIN customers cu ON o.customer_id = cu.id
+WHERE cu.id IN (2,4,6,8,9)
+AND o.quantity > 1
+ORDER BY o.order_date ASC;
