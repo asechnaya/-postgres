@@ -1,8 +1,4 @@
--- Database: store
-
--- DROP DATABASE store;
-	
--- #100DaysOfCode
+-- #100DaysOfCode: DAY 1
 -- INNER JOINT PART 2
 
 SELECT * FROM customers;
@@ -41,3 +37,158 @@ SELECT cu.date_joined, a.postcode FROM customers cu
 INNER JOIN address a ON cu.address_id =a.id
 WHERE a.city IN ('Brighton')
 ORDER BY cu.first_name ASC;
+
+-- #100DaysOfCode: DAY 2
+-- LEFT JOIN
+
+SELECT * FROM address;
+SELECT * FROM customers;
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM customers c
+LEFT JOIN address a ON a.id = c.address_id;
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM address a
+LEFT JOIN customers c ON a.id = c.address_id
+WHERE a.city = 'Brighton'
+ORDER BY c.last_name ASC;
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM customers c
+INNER JOIN address a ON a.id = c.address_id;
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM address a
+LEFT JOIN customers c ON a.id = c.address_id;
+
+-- RIGHT JOIN
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM address a
+RIGHT JOIN customers c ON a.id = c.address_id;
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM customers c
+RIGHT JOIN address a ON a.id = c.address_id;
+
+-- FULL (OUTER) JOIN
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM address a
+FULL JOIN customers c ON a.id = c.address_id;
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM customers c
+FULL JOIN address a ON a.id = c.address_id
+WHERE c.first_name = 'John'
+ORDER BY a.city DESC;
+
+SELECT c.*, a.* FROM customers c
+FULL JOIN address a ON a.id = c.address_id
+WHERE c.first_name = 'John'
+ORDER BY a.city DESC;
+
+-- Solution 2: Selecting from Multiple Tables
+
+ --- 1. How many rows are returned by a LEFT JOIN between the customers (table 1) and address (table 2) tables.
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM customers c
+LEFT JOIN address a ON a.id = c.address_id;
+
+-- ANS 25
+
+-- 2. How many rows are returned by a RIGHT JOIN between the customers (table 1) and address (table 2) tables. 
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM customers c
+RIGHT JOIN address a ON a.id = c.address_id;
+
+-- ANS 28
+
+
+-- 3. How many rows are returned by a FULL JOIN between the customers (table 1) and address (table 2) tables.
+
+SELECT a.id, a.city, c.first_name, c.last_name, c.address_id FROM customers c
+FULL JOIN address a ON a.id = c.address_id;
+
+-- ANS 29
+
+
+--- JOINING more than two tables
+
+SELECT * FROM orders;
+SELECT * FROM products;
+SELECT * FROM address;
+SELECT * FROM customers;
+SELECT * FROM employees;
+
+
+SELECT c.id AS customer_id, c.first_name, c.last_name, a.street, a.postcode, p.name, o.quantity, o.price, o.order_date FROM orders o
+JOIN products p ON o.product_id = p.id
+JOIN customers c ON o.customer_id = c.id
+LEFT JOIN address a ON c.address_id=a.id
+WHERE a.city = 'Brighton'
+AND p.name = 'Shoes'
+ORDER BY c.first_name ASC;
+
+SELECT a.city, a.postcode, c.first_name, c.last_name, o.product_id, o.quantity, o.order_date FROM address a 
+INNER JOIN customers c ON a.id = c.address_id 
+INNER JOIN orders o ON o.customer_id = c.id
+WHERE c.date_joined BETWEEN '20170101' AND '20170306' 
+AND o.product_id < 4;
+
+--- UNION AND UNION ALL
+-- combines the results set of two SELECT statements
+
+-- The SELECT statements must have the same number of columns
+-- and the columns must be of compatible data types
+
+SELECT * FROM customers;
+SELECT * FROM employees;
+
+SELECT first_name, last_name FROM customers
+UNION
+SELECT first_name, last_name FROM employees;
+
+
+SELECT first_name FROM customers
+UNION
+SELECT last_name FROM employees;
+
+SELECT first_name FROM customers
+UNION ALL
+SELECT first_name FROM employees;
+
+SELECT first_name FROM customers
+UNION 
+SELECT first_name FROM employees;
+
+SELECT first_name, last_name FROM customers
+WHERE first_name = 'John'
+UNION
+SELECT first_name, last_name FROM employees
+ORDER BY first_name DESC;
+
+
+
+-- Exercise 3: Selecting from Multiple Tables
+
+-- 1. Select the first_name and last_name from the customers table, 
+-- name and season from the products table and quantity from the orders table, where city is equal to Worthing. 
+SELECT * FROM orders;
+SELECT * FROM products;
+SELECT * FROM address;
+SELECT * FROM customers;
+SELECT * FROM employees;
+
+SELECT  c.first_name, c.last_name, p.name, p.season, o.quantity FROM customers c 
+JOIN orders o ON c.id = o.customer_id
+JOIN products p ON p.id = o.product_id
+JOIN address a ON a.id = c.address_id 
+WHERE a.city = 'Worthing';
+
+-- 2. Select the quantity, price and order_date from the orders table, name from the product, 
+-- and street and postcode from the address table. 
+
+SELECT  p.name, o.quantity, o.price, o.order_date, a.street, a.postcode FROM orders o
+JOIN products p ON o.product_id=p.id
+JOIN customers c ON o.customer_id=c.id
+JOIN address a ON c.address_id = a.id;
+
+-- 3. Select the first_name and last_name from the employees and customers tables using a UNION clause. 
+SELECT first_name, last_name FROM customers
+UNION 
+SELECT first_name, last_name FROM employees;
+
