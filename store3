@@ -1,0 +1,57 @@
+-- Database: store
+
+-- DROP DATABASE store;
+
+CREATE DATABASE store
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Russian_Russia.1251'
+    LC_CTYPE = 'Russian_Russia.1251'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+	
+-- #100DaysOfCode: DAY 3
+-- How to use the count function
+
+SELECT COUNT(*) FROM employees;
+
+SELECT * FROM products;
+
+SELECT COUNT(*) FROM products
+WHERE season = 'Summer';
+
+SELECT COUNT(season) FROM products
+WHERE season = 'Summer';
+
+-- find out the number of orders in January.
+SELECT COUNT(*) FROM orders
+WHERE order_date BETWEEN '20170101' AND '20170131';
+
+-- MIN AND MAX VALUES 
+SELECT * FROM products;
+SELECT MIN(wholesale_price) AS cheapest_product FROM products;
+SELECT MAX(quantity) AS biggest_order FROM orders;
+
+-- USING the SUM function
+
+SELECT * FROM orders;
+SELECT * FROM employees;
+
+SELECT SUM(hours) FROM employees;
+
+SELECT SUM(quantity) FROM orders
+WHERE order_date BETWEEN '20170101' AND '20170131';
+
+/* 
+SELECT SUM(first_name) FROM employees;
+Doesn't work because there are no arguments
+*/
+
+-- USING the AVERAGE function
+
+SELECT AVG(pay) FROM employees;
+
+SELECT AVG(price) FROM orders
+WHERE quantity>1;
+
