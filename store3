@@ -55,3 +55,35 @@ SELECT AVG(pay) FROM employees;
 SELECT AVG(price) FROM orders
 WHERE quantity>1;
 
+-- Grouping DATA by using GROUP BY
+
+SELECT * FROM orders;
+
+SELECT customer_id, SUM(price) FROM orders
+GROUP BY customer_id;
+
+
+SELECT * FROM orders WHERE customer_id = 3;
+
+SELECT customer_id, product_id, SUM(price) FROM orders
+GROUP BY customer_id, product_id
+ORDER BY product_id;
+
+SELECT c.first_name, c.last_name, p.name, SUM(o.price) FROM customers c
+JOIN orders o ON c.id = o.customer_id
+JOIN products p ON o.product_id = p.id
+GROUP BY c.last_name, c.first_name, p.name
+ORDER BY c.last_name;
+
+-- Using the HAVING clause 
+
+SELECT customer_id, SUM(price) FROM orders
+GROUP BY customer_id
+HAVING customer_id = 8;
+
+SELECT c.first_name, c.last_name, p.name, SUM(o.price) FROM customers c
+JOIN orders o ON c.id = o.customer_id
+JOIN products p ON o.product_id = p.id
+GROUP BY c.last_name, c.first_name, p.name
+HAVING p.name LIKE '%Shirt%'
+ORDER BY c.last_name;
