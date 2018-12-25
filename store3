@@ -55,6 +55,7 @@ SELECT AVG(pay) FROM employees;
 SELECT AVG(price) FROM orders
 WHERE quantity>1;
 
+-- #100DaysOfCode: DAY 4
 -- Grouping DATA by using GROUP BY
 
 SELECT * FROM orders;
@@ -87,3 +88,35 @@ JOIN products p ON o.product_id = p.id
 GROUP BY c.last_name, c.first_name, p.name
 HAVING p.name LIKE '%Shirt%'
 ORDER BY c.last_name;
+
+SELECT date_joined, id FROM customers 
+WHERE date_joined BETWEEN '20160501' AND '20161231';
+
+
+SELECT date_joined, COUNT(id) FROM customers
+GROUP BY date_joined 
+HAVING date_joined BETWEEN '20160101' AND '20161231';
+
+-- 1. Write a query which will return the maximum value in the hours column from the employees table. 
+
+SELECT MAX(hours) FROM employees;
+
+--2. Write a query which will return the number of rows in the address table where city is equal to London. 
+SELECT COUNT(id) FROM address
+WHERE city ='London';
+
+--3. What was the total quantity bought in January 2017, grouped by each product and order date?
+SELECT product_id, order_date, SUM(quantity) FROM orders
+GROUP BY product_id, order_date 
+HAVING order_date BETWEEN '20170101' AND '20170131'
+ORDER BY order_date;
+
+--4. What was the average price spent, grouped by each order date, for March 2017? 
+SELECT order_date, AVG(price) FROM orders
+GROUP BY order_date, price
+HAVING order_date BETWEEN '20170301' AND '20170331';
+
+SELECT order_date, AVG(price) FROM orders
+GROUP BY order_date 
+HAVING order_date BETWEEN '20170301' AND '20170331'
+ORDER BY order_date;
