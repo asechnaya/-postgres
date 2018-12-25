@@ -1,0 +1,44 @@
+-- Database: FILMS
+
+-- DROP DATABASE "FILMS";
+
+CREATE DATABASE "FILMS"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Russian_Russia.1251'
+    LC_CTYPE = 'Russian_Russia.1251'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+-- #100DaysOfCode: DAY 5
+-- Grouping DATA by using GROUP BY
+
+	
+CREATE TABLE directors (
+
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE NOT NULL,
+	date_of_birth DATE NOT NULL,
+	awards INT	
+);
+
+SELECT * FROM directors;
+
+CREATE TABLE movies (
+	
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) UNIQUE NOT NULL,
+	released_date DATE NOT NULL,
+	director INT REFERENCES directors(id),
+	lead_actor INT,
+	rating INT CHECK(rating BETWEEN 1 AND 100)
+);
+
+SELECT * FROM movies;
+
+
+
+
+
+
