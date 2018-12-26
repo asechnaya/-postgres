@@ -101,3 +101,14 @@ ALTER TABLE actors ALTER COLUMN nationality DROP NOT NULL;
 
 ALTER TABLE actors ALTER COLUMN name TYPE VARCHAR(40);
 
+-- Exercise 2: Data definition Language 
+--1. Add a producer_id column to the movies table. 
+
+ALTER TABLE movies ADD COLUMN producer_id INT;
+
+-- 2. Add a foreign key constraint to the producer_id column in the movies table that references the id column in the producers table. 
+
+ALTER TABLE movies ADD FOREIGN KEY (producer_id) REFERENCES producers(id);
+
+-- 3. Remove the writers table from the database.
+DROP TABLE writers;
