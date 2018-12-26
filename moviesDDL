@@ -12,7 +12,7 @@ CREATE DATABASE "FILMS"
     CONNECTION LIMIT = -1;
 
 -- #100DaysOfCode: DAY 5
--- Grouping DATA by using GROUP BY
+-- CREATING TABLES
 
 	
 CREATE TABLE directors (
@@ -38,7 +38,66 @@ CREATE TABLE movies (
 SELECT * FROM movies;
 
 
+-- Exercise 1: Data Definition Language
+
+-- 1. Create a producers table, with id, name and date_of_birth columns. Make the id a primary key and the name unique. 
+CREATE TABLE producers (
+
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE,
+	date_of_birth DATE
+);
+
+SELECT * FROM producers;
+
+-- 2. Create a writers table with id, name and date_of_birth columns. Make the id a primary key and add any constraints that you like. 
+
+CREATE TABLE writers (
+
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE NOT NULL,
+	date_of_birth DATE NOT NULL
+);
+
+SELECT * FROM writers;
+
+-- #100DaysOfCode: DAY 6
+-- HOW TO ADD AND REMOVE COLUMNS FROM A TABLE
+
+ALTER TABLE directors 
+ADD nationality VARCHAR(20); 
+
+ALTER TABLE movies
+ADD earning NUMERIC(6,2) NOT NULL;
+
+ALTER TABLE movies
+DROP rating;
+
+SELECT * FROM movies;
 
 
+-- MODIFYING COLUMNS (ADDING FOREIGN KEYS, CONSTRAINS, DATA TYPES)
 
+CREATE TABLE actors (
+	
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) NOT NULL,
+	gender CHAR(1) NOT NULL,
+	date_of_birth DATE NOT NULL,
+	nationality VARCHAR(20) NOT NULL
+);
+
+
+SELECT * FROM actors;
+SELECT * FROM movies;
+
+ALTER TABLE movies ADD FOREIGN KEY (lead_actor) REFERENCES actors(id);
+
+ALTER TABLE actors ADD CONSTRAINT unique_name UNIQUE (name);
+ALTER TABLE actors DROP CONSTRAINT unique_name;
+
+ALTER TABLE actors ALTER COLUMN nationality SET NOT NULL;
+ALTER TABLE actors ALTER COLUMN nationality DROP NOT NULL;
+
+ALTER TABLE actors ALTER COLUMN name TYPE VARCHAR(40);
 
