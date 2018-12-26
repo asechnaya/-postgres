@@ -112,3 +112,6 @@ ALTER TABLE movies ADD FOREIGN KEY (producer_id) REFERENCES producers(id);
 
 -- 3. Remove the writers table from the database.
 DROP TABLE writers;
+
+SELECT * FROM writers;
+
