@@ -115,3 +115,65 @@ DROP TABLE writers;
 
 SELECT * FROM writers;
 
+
+-- #100DaysOfCode: DAY 7
+-- HOW TO ENTER DATA INTO A TABLE
+
+SELECT * FROM directors;
+Insert INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Christopher Nolan', '19700730', 134, 'American');
+
+Insert INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Danny Boyle', '19700730', 134, NULL);
+
+/*
+Insert INTO directors (name, date_of_birth, awards, nationality)
+VALUES (NULL, '19700730', 134, 'British');
+
+Insert INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Christopher Nolan', '19561020', 8, 'British');
+*/
+
+Insert INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Christopher Nolan', '19561020', 82, 'American');
+
+
+Insert INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Jonathan Nolan', '19760606', 8, 'American');
+
+Insert INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Luc Besson', '19590328', 27, 'French');
+
+-- HOW TO UPDATE DATA INTO A TABLE
+SELECT * FROM directors;
+
+UPDATE directors 
+SET nationality = 'British';
+--WHERE name = 'Danny Boyle';
+
+
+UPDATE directors 
+SET name =  'Luc Besson', nationality = 'French'
+WHERE id = 6;
+
+UPDATE directors
+SET nationality = ' American'
+WHERE name LIKE '%Nolan%';
+
+-- HOW TO DELETE ROWS OF DATA INTO A TABLE
+
+INSERT INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Wes Anderson', '19690501', 69, 'American');
+
+INSERT INTO directors (name, date_of_birth, awards, nationality)
+VALUES ('Wong Kar-wai', '19580717', 30, 'Chineese');
+
+DELETE FROM directors
+WHERE id = 6;
+
+SELECT * FROM directors;
+
+DELETE FROM directors
+WHERE name LIKE '%Nolan%';
+
+DELETE FROM directors;
